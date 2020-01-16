@@ -18,7 +18,7 @@ try :
     from chatterbot.trainers import ListTrainer
 
 except:
-	os.system("cd /root && apt-get install python3-pip -y && python-pip -y")
+	os.system("cd /root && apt-get update -y && apt-get install python3-pip -y && python-pip -y")
 	os.system("cd /root && apt-get install python3-tk -y")
 	#if sys.platform == "Linux" or "Linux2" or "Linux3":
 	#os.system('cd /root && pip3 install pygame ')
@@ -33,7 +33,7 @@ except:
 	from tkinter import Tk,Button,Frame,Entry,END,BOTH
 	from tkinter import *
 	import tkinter.scrolledtext as ScrolledText
-	import pygame
+	#import pygame
 	import sys
 	from chatterbot import ChatBot
 	from chatterbot.trainers import ListTrainer
@@ -135,18 +135,15 @@ class digitilize_main_window:
 		
 		elif user_input == "certification":
 			self.start_crt()
-			
-		elif user_input == "virtualbox":
-			self.start_virtualbox()
 		
 		elif user_input == "installs":
 			self.installs_window()
 		
-		elif user_input == "music on":
-			self.play_music()
+		#elif user_input == "music on":
+		#	self.play_music()
 		
-		elif user_input == "music off":
-			self.stop_music()
+		#elif user_input == "music off":
+		#	self.stop_music()
 		
 		elif user_input == "exit":
 			self.close_window_ai()
@@ -207,10 +204,6 @@ class digitilize_main_window:
 
 	def start_crt(self):
 		webbrowser.open("https://crt.sh/")
-
-	def start_virtualbox(self):
-		#start virtual box
-		os.system("gnome-terminal -x virtualbox")
 	
 	def installs_window(self):
 		#open installs window
@@ -298,10 +291,6 @@ class start_digitilize:
 		self.button_crt = tk.Button (self.frame, text = "Certification Search", width = 25 , command = self.start_crt)
 		self.button_crt.configure(background = "green2")
 		self.button_crt.pack()
-
-		#VirtualBox Button 
-		self.button_start_vbox = tk.Button (self.frame, text = "Start VirtualBox", width = 25, command = self.start_virtualbox)
-		self.button_start_vbox.pack()
 		
 		#Installs Window
 		self.button_installs =tk.Button (self.frame, text = "Installs", width = 25 , command = self.installs_window)
@@ -309,18 +298,18 @@ class start_digitilize:
 		self.button_installs.pack()
 		
 		#Music Buttons
-		self.button_play_music = tk.Button(self.frame, text = "Play Music", width = 25 , command = self.play_music)
-		self.button_play_music.configure(background = "purple1")
-		self.button_play_music.pack()
+		#self.button_play_music = tk.Button(self.frame, text = "Play Music", width = 25 , command = self.play_music)
+		#self.button_play_music.configure(background = "purple1")
+		#self.button_play_music.pack()
 		
-		self.button_stop_music = tk.Button(self.frame, text = "Stop Music", width = 25 , command = self.stop_music)
-		self.button_stop_music.configure(background = "purple1")
-		self.button_stop_music.pack()
+		#self.button_stop_music = tk.Button(self.frame, text = "Stop Music", width = 25 , command = self.stop_music)
+		#self.button_stop_music.configure(background = "purple1")
+		#self.button_stop_music.pack()
 		
 		#Exit Button
 		self.button_exit = tk.Button (self.frame, text = "Exit", width =  25 , command = self.exit_software)
 		self.button_exit.configure (background = "black", fg = "gold")
-		self.button_exit.pack(after = self.button_stop_music)
+		self.button_exit.pack()
 		
 		#Entries
 		
@@ -404,10 +393,6 @@ class start_digitilize:
 
 	def start_crt(self):
 		webbrowser.open("https://crt.sh/")
-
-	def start_virtualbox(self):
-		#start virtual box
-		os.system("gnome-terminal -x virtualbox")
 	
 	def installs_window(self):
 		#open installs window
@@ -738,12 +723,6 @@ class installs_section:
 		self.Checkbutton_sqlmap = tk.Checkbutton (self.master, text = "SQLMap", width = 25, variable = self.sqlmap_install)
 		self.Checkbutton_sqlmap.configure(background = "dark red", fg = "gold")
 		self.Checkbutton_sqlmap.pack()
-	
-		#Virtualbox install
-		self.vbox_install = IntVar()
-		self.Checkbutton_vbox = tk.Checkbutton (self.master, text = "VirtualBox", width = 25, variable = self.vbox_install)
-		self.Checkbutton_vbox.configure(background = "green", fg = "black")
-		self.Checkbutton_vbox.pack()
 		
 		#Dependecies install
 		self.dependecies_install = IntVar()
@@ -809,17 +788,6 @@ class installs_section:
 		if self.sensors_install.get() == 1:
 		    os.system ("cd /root && apt-get install lm-sensors")
 		    print("Done")
-		
-		#vbox install
-		if self.vbox_install.get() == 1:
-		    os.system("cd /root && wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -")
-		    os.system("cd /root && wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -")
-		    os.system('cd /root && echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list')
-		    os.system("cd /root && apt-get update")
-		    os.system("cd /root && apt-get install linux-headers-$(uname -r) dkms")
-		    os.system("cd /root && apt-get install virtualbox virtualbox-ext-pack")
-		    os.system("cd /root && xdg-open Oracle_VM_VirtualBox_Extension_Pack-6.0.0.vbox-extpack") 
-		    print("Done")
 		   
 		#dependencies install
 		if self.dependecies_install.get() == 1:
@@ -839,11 +807,6 @@ class installs_section:
 		if self.nmap_install.get() == 1 :
 		    os.system("curl https://nmap.org/dist/nmap-7.80-setup.exe -O C:/Users/%USERNAME%/Documents/mementos")
 		    os.system("start nmap-7.80-setup.exe")
-		#Vbox
-
-		if self.vbox_install.get() == 1 :
-		    os.system("curl https://download.virtualbox.org/virtualbox/6.0.12/VirtualBox-6.0.12-133076-Win.exe -O C:/Users/%USERNAME%/Documents/mementos")
-		    os.system("start VirtualBox-6.0.12-133076-Win.exe") 
 
 		#metasploit
 		if self.msf_install.get()== 1:
